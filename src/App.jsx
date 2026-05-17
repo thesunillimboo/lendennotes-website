@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./App.css";
 
 const features = [
@@ -28,6 +29,34 @@ const features = [
 ];
 
 function App() {
+  const [email, setEmail] = useState("");
+  const [formStatus, setFormStatus] = useState("idle");
+
+  async function handleWaitlistSubmit(event) {
+    event.preventDefault();
+    setFormStatus("submitting");
+
+    try {
+      const response = await fetch("https://formspree.io/f/xdajoaaq", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Waitlist submission failed");
+      }
+
+      setEmail("");
+      setFormStatus("success");
+    } catch (error) {
+      setFormStatus("error");
+    }
+  }
+
   return (
     <div className="app">
       <header className="header">
@@ -152,19 +181,31 @@ function App() {
             </p>
           </div>
 
-          <form
-            className="waitlist-form"
-            action="https://formspree.io/f/xdajoaaq"
-            method="POST"
-          >
+          <form className="waitlist-form" onSubmit={handleWaitlistSubmit}>
             <input
               type="email"
               name="email"
               placeholder="Enter your email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
               required
             />
-            <button type="submit">Notify Me</button>
+            <button type="submit" disabled={formStatus === "submitting"}>
+              {formStatus === "submitting" ? "Submitting..." : "Notify Me"}
+            </button>
           </form>
+
+          {formStatus === "success" && (
+            <p className="form-message success">
+              Thank you. You are now on the LenDen Notes waitlist.
+            </p>
+          )}
+
+          {formStatus === "error" && (
+            <p className="form-message error">
+              Something went wrong. Please try again.
+            </p>
+          )}
         </section>
       </main>
 
