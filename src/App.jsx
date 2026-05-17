@@ -152,8 +152,17 @@ function App() {
             </p>
           </div>
 
-          <form className="waitlist-form">
-            <input type="email" placeholder="Enter your email" required />
+          <form
+            className="waitlist-form"
+            action="https://formspree.io/f/xdajoaaq"
+            method="POST"
+          >
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+            />
             <button type="submit">Notify Me</button>
           </form>
         </section>
