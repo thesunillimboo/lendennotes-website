@@ -1,4 +1,5 @@
 import "./App.css";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 const features = [
   {
@@ -28,6 +29,9 @@ const features = [
 ];
 
 function App() {
+  if (window.location.pathname === "/privacy-policy") {
+    return <PrivacyPolicy />;
+  }
   return (
     <div className="app">
       <header className="header">
@@ -184,6 +188,10 @@ function App() {
         </a>
 
         <p>© 2026 LenDen Notes. All rights reserved.</p>
+
+        <a className="privacy-link" href="/privacy-policy">
+          Privacy Policy
+        </a>
 
         <div className="social-links" aria-label="Social links">
           <a href="#top" aria-label="Instagram">
