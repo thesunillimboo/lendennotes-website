@@ -29,7 +29,7 @@ const features = [
 ];
 
 function App() {
-  if (window.location.pathname === "/privacy-policy") {
+  if (window.location.pathname === "/#privacy-policy") {
     return <PrivacyPolicy />;
   }
   return (
@@ -189,7 +189,7 @@ function App() {
 
         <p>© 2026 LenDen Notes. All rights reserved.</p>
 
-        <a className="privacy-link" href="/privacy-policy">
+        <a className="privacy-link" href="/#privacy-policy">
           Privacy Policy
         </a>
 
